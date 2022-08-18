@@ -1,10 +1,12 @@
 import React from "react";
 import NoteItemBody from "./NoteItemBody";
+import NoteItemAction from "./NoteItemAction";
 
-function NoteItem({ title, body, date }) {
+function NoteItem({ title, body, createdAt, id, onDelete }) {
     return (
         <div className="note-item">
-            <NoteItemBody title={title} body={body} date={date} />
+            <NoteItemBody title={title} body={body} date={createdAt} />
+            <NoteItemAction id={id} onDelete={onDelete} />
         </div>
     );
 }
