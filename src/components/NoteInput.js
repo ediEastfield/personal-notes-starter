@@ -7,6 +7,7 @@ class NoteInput extends React.Component {
         this.state = {
             title: '',
             body: '',
+            maxChar: 50,
         }
 
         this.onTitleChangeEventHandler = this.onTitleChangeEventHandler.bind(this);
@@ -15,9 +16,13 @@ class NoteInput extends React.Component {
     }
 
     onTitleChangeEventHandler(event) {
+        const limit = 50;
+        const inputTitle = event.target.value.slice(0, limit);
+        const used = inputTitle.length;
         this.setState(() => {
             return {
-                title: event.target.value,
+                title: inputTitle,
+                maxChar: limit - used
             }
         });
     }
@@ -33,15 +38,26 @@ class NoteInput extends React.Component {
     onSubmitEventHandler(event) {
         event.preventDefault();
         this.props.addNote(this.state);
+        this.setState(() => {
+            return {
+                title: '',
+                body: '',
+                maxChar: 50
+            }
+        });
     }
 
     render() {
         return (
-            <form className="note-input" onSubmit={this.onSubmitEventHandler}>
-                <input className="note-input__title" type="text" placeholder="Ini adalah judul ..." value={this.state.title} onChange={this.onTitleChangeEventHandler} />
-                <input className="note-input__body" type="text" placeholder="Tuliskan catatanmu di sini ..." value={this.state.body} onChange={this.onBodyChangeEventHandler} />
-                <button type="submit">Buat</button>
-            </form>
+            <div className="note-input">
+                <h2>Buat Catatan</h2>
+                <form onSubmit={this.onSubmitEventHandler}>
+                    <p className="note-input__title__char-limit">Sisa karakter: {this.state.maxChar}</p>
+                    <input className="note-input__title" type="text" placeholder="Ini adalah judul ..." value={this.state.title} onChange={this.onTitleChangeEventHandler} />
+                    <textarea className="note-input__body" type="text" placeholder="Tuliskan catatanmu di sini ..." value={this.state.body} onChange={this.onBodyChangeEventHandler} />
+                    <button type="submit">Buat</button>
+                </form>
+            </div>
         )
     }
 }

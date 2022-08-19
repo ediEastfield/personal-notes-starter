@@ -4,6 +4,7 @@ import NoteItem from "./NoteItem";
 class NoteList extends React.Component {
     render() {
         return (
+            
             this.props.notes.length > 0 ?
                 <div className="notes-list">
                     {
@@ -11,7 +12,9 @@ class NoteList extends React.Component {
                             <NoteItem 
                             key={note.id}
                             id={note.id}
+                            archived={note.archived}
                             onDelete={this.props.onDelete}
+                            onArchive={this.props.onArchive}
                             {...note} />
                         ))
                     }
