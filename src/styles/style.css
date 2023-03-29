@@ -186,3 +186,33 @@ input::placeholder, textarea::placeholder {
     grid-template-columns: repeat(4, 1fr);
   }
 }
+
+.note-dialog {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: white;
+  padding: 20px;
+  border-radius: 10px;
+}
+
+.note-dialog__yes-button, .note-dialog__no-button {
+  color: white;
+  padding: 10px;
+  margin-left: 4px;
+  border: none;
+  cursor: pointer;
+}
+
+.note-dialog__yes-button {
+  background: red;
+}
+
+.note-dialog__no-button {
+  background: green;
+}
