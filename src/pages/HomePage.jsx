@@ -1,10 +1,10 @@
 import React from "react";
-import NoteList from "./NoteList";
+import NoteList from '../components/NoteList';
 import { getInitialData } from '../utils/index';
-import NoteInput from "./NoteInput";
-import NoteSearch from "./NoteSearch";
+import NoteInput from "../components/NoteInput";
+import NoteSearch from "../components/NoteSearch";
 
-class NoteApp extends React.Component {
+class HomePage extends React.Component {
     constructor(props) {
         super(props);
 
@@ -87,4 +87,4 @@ class NoteApp extends React.Component {
     }
 }
 
-export default NoteApp;
+export default HomePage;
