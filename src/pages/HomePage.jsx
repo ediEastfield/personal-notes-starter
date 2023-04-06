@@ -1,45 +1,45 @@
 import React from "react";
 import NoteList from '../components/NoteList';
-import { getInitialData } from '../utils/index';
-import NoteInput from "../components/NoteInput";
 import NoteSearch from "../components/NoteSearch";
+import { getActiveNotes, getArchivedNotes, deleteNote } from "../utils/api";
 
 class HomePage extends React.Component {
     constructor(props) {
         super(props);
 
         this.state = {
-            notes: getInitialData(),
+            notes: [],
+            archives: [],
             keyword: '',
         }
 
         this.onDeleteHandler = this.onDeleteHandler.bind(this);
-        this.onAddNoteHandler = this.onAddNoteHandler.bind(this);
         this.onSearchNoteHandler = this.onSearchNoteHandler.bind(this);
         this.onArchiveNoteHandler = this.onArchiveNoteHandler.bind(this);
     }
 
-    onDeleteHandler(id) {
-        const notes = this.state.notes.filter(note => note.id !== id);
-        this.setState({ notes });
+    async componentDidMount() {
+        const { data } = await getActiveNotes();
+        const { archived } = await getArchivedNotes();
 
+        this.setState(() => {
+            return {
+                notes: data,
+                archives: archived
+            }
+        })
     }
 
-    onAddNoteHandler({ title, body }) {
-        this.setState((prevState) => {
+    async onDeleteHandler(id) {
+        await deleteNote(id);
+
+        const { data } = await getActiveNotes();
+        this.setState(() => {
             return {
-                notes: [
-                    ...prevState.notes,
-                    {
-                        id: +new Date(),
-                        title,
-                        body,
-                        createdAt: new Date().toISOString(),
-                        archived: false,
-                    }
-                ]
+                notes: data,
             }
         });
+
     }
 
     onSearchNoteHandler(search) {
@@ -69,14 +69,12 @@ class HomePage extends React.Component {
             note.archived === true
         ))
 
+        console.log(this.state.archives);
+
         return (
             <body>
-                <div className="note-app__header">
-                    <h1>Notes</h1>
-                    <NoteSearch onSearch={this.onSearchNoteHandler}/>
-                </div>
                 <div className="note-app__body">
-                    <NoteInput addNote={this.onAddNoteHandler} />
+                    <NoteSearch onSearch={this.onSearchNoteHandler}/>
                     <h2>Catatan Aktif</h2>
                     <NoteList notes={archiveNotes} onDelete={this.onDeleteHandler} onArchive={this.onArchiveNoteHandler} />
                     <h2>Arsip</h2>

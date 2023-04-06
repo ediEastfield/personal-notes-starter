@@ -62,4 +62,8 @@ function getNoteById(id) {
   return data;
 }
 
-export { getInitialData, showFormattedDate, getNoteById };
+function addNote({title,body}){
+  notes = [...notes, { id: `notes-${+new Date()}`, title: title || '(untitled)', body, createdAt: new Date().toISOString(),archived:false}];
+}
+
+export { getInitialData, showFormattedDate, getNoteById, addNote };

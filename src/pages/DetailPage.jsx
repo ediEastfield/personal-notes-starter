@@ -1,36 +1,42 @@
 import React from "react";
-import { getNoteById } from '../utils/index';
+import { getSingleNote } from "../utils/api";
 import { useParams } from "react-router-dom";
 import DetailItem from '../components/DetailItem';
-import { Link } from "react-router-dom";
-import { FiHome } from "react-icons/fi"
 import PropTypes from "prop-types";
 
 function DetailPageWrapper() {
     const {id} = useParams();
     
-    return <DetailPage id = {Number(id)} />;
+    return <DetailPage id = {id} />;
 }
 
 class DetailPage extends React.Component {
-    constructor(props){
+    constructor(props) {
         super(props);
 
         this.state = {
-            note : getNoteById(props.id)
+            note : {}
         }
     }
 
+    async componentDidMount() {
+        const { data } = await getSingleNote(this.props.id);
+
+        this.setState(() => {
+            return {
+                note: data
+            }
+        });
+    }
+
     render () {
+        console.log(this.state.note)
         if (this.state.note == null) {
             return <p className="notes-list__empty-message">Tidak ada catatan</p>
         }
 
         return (
             <body>
-                <div className="note-app__header">
-                    <h1><Link to="/"><FiHome /></Link></h1>
-                </div>
                 <div className="note-app__body">
                     <DetailItem {...this.state.note} />
                 </div>
@@ -40,7 +46,7 @@ class DetailPage extends React.Component {
 }
 
 DetailPageWrapper.propTypes = {
-    id: PropTypes.number.isRequired,
+    id: PropTypes.string.isRequired,
 }
 
 export default DetailPageWrapper;
