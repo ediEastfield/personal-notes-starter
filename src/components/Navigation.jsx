@@ -1,17 +1,28 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
-import { FiHome, FiPlusCircle, FiLogOut } from 'react-icons/fi';
+import { FiHome, FiPlusCircle, FiArchive, FiLogOut, FiMoon, FiSun } from 'react-icons/fi';
+import { ThemeConsumer } from '../contexts/ThemeContext';
 
 function Navigation({ logout, name }) {
   return (
-    <nav className="navigation">
-      <ul>
-        <li><Link to="/"><FiHome /></Link></li>
-        <li><Link to="/add"><FiPlusCircle /></Link></li>
-        <li><button onClick={logout}>{name} <FiLogOut /></button></li>
-      </ul>
-    </nav>
+    <ThemeConsumer>
+      {
+        ({ theme, toggleTheme}) => {
+          return (
+            <nav className="navigation">
+              <ul>
+                <li><button onClick={toggleTheme}>{theme === 'light' ? <FiMoon /> : <FiSun />}</button></li>
+                <li><Link to="/"><FiHome /></Link></li>
+                <li><Link to="/archive"><FiArchive /></Link></li>
+                <li><Link to="/add"><FiPlusCircle /></Link></li>
+                <li><button onClick={logout}>{name} <FiLogOut /></button></li>
+              </ul>
+            </nav>
+          )
+        }
+      }
+    </ThemeConsumer>
   );
 }
 

@@ -141,11 +141,11 @@ async function archiveNote(id) {
     return { error: false };
 }
 
-async function unarchiveNote({id}) {
+async function unarchiveNote(id) {
     const response = await fetchWithToken(`${BASE_URL}/notes/${id}/unarchive`, {
         method: 'POST',
 
-        body: JSON.stringify({id}),
+        body: JSON.stringify(id),
     });
 
     const responseJson = await response.json();

@@ -16,8 +16,8 @@
 
 body {
   font-family: 'Inter', sans-serif;
-  background-color: #202124;
-  color: white;
+  background-color: var(--background-color);
+  color: var(--font-color);
 }
 
 input, textarea {
@@ -25,7 +25,7 @@ input, textarea {
   margin: 12px 0;
   font-family: 'Inter', sans-serif;
   background-color: transparent;
-  color: white;
+  color: var(--font-color);
   border: 1px solid #aaa;
   border-radius: 4px;
 }
@@ -46,7 +46,7 @@ input::placeholder, textarea::placeholder {
 .note-app__header h1 {
   margin: 8px 0;
   flex: 1;
-  color: white;
+  color: var(--font-color);
 }
 
 
@@ -92,7 +92,7 @@ input::placeholder, textarea::placeholder {
   padding: 8px;
   background-color: transparent;
   font-family: 'Inter', sans-serif;
-  color: white;
+  color: var(--font-color);
   border: 1px solid #aaa;
   border-radius: 4px;
   font-weight: bold;
@@ -269,7 +269,7 @@ input::placeholder, textarea::placeholder {
 
 .navigation ul li a {
   font-size: 28px;
-  color: white;
+  color: var(--font-color);
 }
 
 .navigation ul li button {
@@ -280,6 +280,6 @@ input::placeholder, textarea::placeholder {
   cursor: pointer;
   display: flex;
   align-items: center;
-  color: white;
+  color: var(--font-color);
   gap: 10px;
 }
